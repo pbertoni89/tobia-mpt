@@ -1,0 +1,7 @@
+dataset_1
+
+OR-Library [Chang, T.-J., Meade, N., Beasley, J.E. and Sharaiha, Y.M., "Heuristics for cardinality constrained portfolio optimisation" Computers & Operations Research 27 (2000) 1271-1302]
+load('port5.mat','Correlation','stdDev_return','mean_return')
+
+
+dataset_2
