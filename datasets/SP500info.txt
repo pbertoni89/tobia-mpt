@@ -1,0 +1,31 @@
+Market: Standard & Poor’s 500
+Number of stocks: 25
+Number of days: 1276 (5 years)
+Period: Jan 2, 1998 to Jan 31, 2003
+Other info: 25 largest market cap stocks in the SP500 index (as of Apr 2003). Source: MSN Money
+Stock Composition:
+General Electric Company (273 Bil)
+Microsoft Corporation (259 Bil)
+Wal-Mart Stores, (234 Bil)
+Exxon Mobil Corporation (230 Bil)
+Pfizer Inc (194 Bil)
+Citigroup Inc. (192 Bil)
+Johnson & Johnson (170 Bil)
+American International Group (138 Bil)
+International Business Machines Corporation (136 Bil)
+Merck & Co., Inc. (124 Bil)
+Procter & Gamble Company (115 Bil)
+Intel Corporation (110 Bil)
+Bank of America Corporation (107 Bil)
+Coca-Cola Company (102 Bil)
+Cisco Systems, Inc. (94 Bil)
+Verizon Communications Inc. (93 Bil)
+Wells Fargo & Company (78 Bil)
+Amgen Inc. (75 Bil)
+Dell Computer Corporation (73 Bil)
+PepsiCo, Inc. (69 Bil)
+SBC Communications Inc. (69 Bil)
+Fannie Mae S&P (68 Bil)
+ChevronTexaco Corporation (68 Bil)
+Viacom Inc'b' (66 Bil)
+Eli Lilly and Company (66 Bil)
