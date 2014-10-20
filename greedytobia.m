@@ -1,23 +1,23 @@
-function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( P, z)
+function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( R, z)
 %GREEDYTOBIA Gives a greedy solution for the Portfolio Optimization problem.
-%   P is a (TxJ) matrix of relative returns of J securities over T periods (or in T different scenarios, which is equivalent).
+%   R is a (TxJ) matrix of relative returns of J securities over T periods (or in T different scenarios, which is equivalent).
 %	z is the minimum return desired by the decision maker
 %	p is the probability with which the z fact will occurr, i.e., Pr( vopt >= z).
 %	pdf is the probability distribution function of the T scenarios.
 %	max_Zi_hist is a vector with the historic data of maximum Zi reached over iterations.
-	[~, T] = size(P);
+	[~, T] = size(R);
 	
 	stop = 0;
-	maxIter = T +2;			% cut complexity. assume at most T iterations will be needed
-	max_Zi_hist = [];		% historical improvement
-	onesT = ones(1,T);		% preallocating for speed
+	%maxIter = 10*T + 2;	% seems unuseful. at most T iterations will be needed
+	max_Zi_hist = [];	% historical improvement
+	onesT = ones(1,T);	% preallocating for speed
 	zerosT = zeros(1,T);	% preallocating for speed
-	unfeasible = -2;		% preallocating for readibility
-	i = 1;					% see row 263 of tobia.pdf
-	Ii = zerosT;			% see row 263 of tobia.pdf
+	unfeasible = -2;	% preallocating for readibility
+	i = 1;			% see row 263 of tobia.pdf
+	Ii = zerosT;		% see row 263 of tobia.pdf
 	
-%	fprintf('greedy with z = %2.2f%%\n', z)
-	while stop==0 && i < maxIter
+%	fprintf('starting greedy with z = %2.2f%%\n', z)
+	while stop==0 %&& i < maxIter
 		
 		Iprev = Ii;
 		
@@ -25,7 +25,7 @@ function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( P, z)
 		for t=1:T
 			if Iprev(t) == 0	% t in [1,T] \ I
 				Iprev(t) = 1;
-				[~, ~, flag] = lptobia(P, z, Iprev);
+				[~, ~, flag] = lptobia(R, z, Iprev);
 				Iprev(t) = 0; 
 				if flag ~= unfeasible
 					Fi(t) = 1;
@@ -36,7 +36,7 @@ function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( P, z)
 %		fprintf('\nFi = '), printarray(Fi, 'd'), fprintf('\n')
 		if Fi == zerosT
 			stop = 1;
-			Ii = Iprev;
+			Ii = Iprev;	% returning Iprev as the final Ii
 		else
 			max_Zi = - Inf;
 			ti = 0;
@@ -44,10 +44,10 @@ function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( P, z)
 			for t=1:T
 				if Fi(t) == 1			% t in Fi
 					if Iprev(t) == 1	% don't need to unify
-						[~, Zi, flag] = lptobia(P, z, Iprev);
+						[~, Zi, flag] = lptobia(R, z, Iprev);
 					else
 						Iprev(t) = 1;	% tmp add of t
-						[~, Zi, flag] = lptobia(P, z, Iprev);
+						[~, Zi, flag] = lptobia(R, z, Iprev);
 						Iprev(t) = 0;	% end of tmp add
 					end
 
@@ -76,14 +76,14 @@ function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( P, z)
 %		fprintf('\n ------ end of %d --------\n', i-1)
 	end
 	
-	[x, Zi, flag] = lptobia(P, z, Ii);
 %	fprintf('final Ii = '), printarray(Iprev,'d')
+	[x, Zi, flag] = lptobia(R, z, Ii);
 	if flag == unfeasible
 		feasible = 0; %fprintf(' is UNfeasible\n')
 	else
 		feasible = 1; %fprintf(' is Feasible\n')
 	end
 	max_Zi_hist = - max_Zi_hist;	% since we inverted f_obj for linprog compliance !
-	Zi = - Zi;						% since we inverted f_obj for linprog compliance !
+	Zi = - Zi;			% since we inverted f_obj for linprog compliance !
 end
 
