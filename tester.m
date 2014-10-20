@@ -1,10 +1,16 @@
 clc, clear, close all
 format short
+str = pwd;
+addpath(str);
+addpath(strcat(str, '/datasets'));
+addpath(strcat(str, '/funs'));
 
 max_assets = 6;		% bound complexity
 max_periods = 12;	% bound complexity
 
 %R = load('SP500.txt');
+%R = load('TSE.txt');
+%R = load('GAUSS_1_05.txt');
 R = load('OXM.txt');
 
 [periods, assets] = size(R);
@@ -39,10 +45,10 @@ for r=1:periods
 	Rmad(r,:) = R(r,:) - Rmean;
 end
 
-fprintf('These tests uses data for %d shares over %d periods.\n', assets, periods)
+fprintf('This test uses data for %d shares over %d periods.\n', assets, periods)
 
-%% PAPAHRISTODOULOUS
-fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ PAPAHRISTODOULOUS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
+%% PAPAHRISTODOULOU
+fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ PAPAHRISTODOULOU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
 
 f = (1/periods) * ones(periods, 1);
 f = [ f ; zeros(assets, 1) ];
@@ -80,7 +86,7 @@ fprintf('\nrisk = %f | maximum return = %f %%\n', PortRisk(end), Rmean*maxRet*10
 
 %% TOBIA
 z = 0.001;
-R = R';		% don't forget bout it !!!!!!!!!!!
+R = R';		% occhio !!!!!!!!!!!
 fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ TOBIA (z=%2.2f%%) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n', z*100)
 
 p = .5;

@@ -29,7 +29,5 @@ function [ x, Z_I, flag ] = lptobia( P, z, I )
 	ub = ones(1, J);				% see row 233 of tobia.pdf
 	
 	displayOff = optimset('Display','off');	% avoid annoying outputs
-	dumbX0 = zeros(size(f)); % must be used for call arguments compliance
-	[x, Z_I, flag] = linprog(f,A,b,Aeq,beq,lb,ub,dumbX0,displayOff);
-%	[x, Z_I, flag] = linprog(f,A,b,Aeq,beq,lb,ub);
+	[x, Z_I, flag] = linprog(f,A,b,Aeq,beq,lb,ub,[],displayOff);
 end
