@@ -1,37 +1,39 @@
 /*********************************************
  * OPL 12.6.0.0 Model
  * Author: pbertoni
- * Creation Date: Nov 7, 2014 at 2:31:39 PM
  *********************************************/
 
-{string} Products = ...;
-{string} Resources = ...;
+int NAssets = ...;
+int NPeriods = ...;
+ 
+range Assets = 1..NAssets;
+range Periods = 1..NPeriods;
+range BinaryVariable = 0..1;
+range float FloatsBetweenZeroAndOne = 0.0..1.0;
 
 float Returns[Assets][Periods] = ...;
-float Capacity[Resources] = ...;
-float Demand[Products] = ...;
-float InsideCost[Products] = ...;
-float OutsideCost[Products]  = ...;
+float Probability[Periods] = ...;
 float p;
 float z;
+float K;
 
-dvar float+ AssetsXj[Assets];
-dvar float+ AuxiliaryAt[Periods];
+dvar float+ Xassets[Assets] in FloatsBetweenZeroAndOne;
+dvar int+ Aauxiliary[Periods] in BinaryVariable;
 
-minimize
-  sum( p in Products ) 
-    ( InsideCost[p] * Inside[p] + OutsideCost[p] * Outside[p] );
+maximize
+	sum ( t in Periods )
+		sum ( j in Assets )
+			(( Return[j][t] * Xassets[j] ) * Probability[t] );
    
 subject to {
-  forall( r in Resources )
-    ctCapacity: 
-      sum( p in Products ) 
-        Consumption[p][r] * Inside[p] <= Capacity[r];
 
-  forall(p in Products)
-    ctDemand:
-      Inside[p] + Outside[p] >= Demand[p];
-      
+	forall(t in Periods)
+		ctReturns:
+			z - sum ( j in Assets ) ( Return[j][t] * Xassets[j] ) <= K * Aauxiliary[t];
+	
+	ctProbability:
+		sum ( t in Periods ) ( Probability[t] * Aauxiliary[t] ) <= 1 - p;
+	
 	ctCapital:
-		sum( x in AssetsXj )
+		sum( x in Xassets ) == 1;
 }
