@@ -1,9 +1,8 @@
 function [ x, Z_I, flag ] = lptobia( R, z, I )
 %LPTOBIA Kernel of the P.O. model by Tobia.
-%   R is a (TxJ) matrix of relative returns of J securities over T periods (or in T different scenarios, which is equivalent).
+%   R is a (JxT) matrix of relative returns of J securities over T periods (or in T different scenarios, which is equivalent).
 %	z is the minimum return desired by the decision maker
 %	p is the probability with which the z fact will occurr, i.e., Pr( vopt >= z).
-%	pdf is the probability distribution function of the T scenarios.
 
 	[J, T] = size(R);
 	pdf = (1/T) * ones(1, T);		% uniform scenario probability

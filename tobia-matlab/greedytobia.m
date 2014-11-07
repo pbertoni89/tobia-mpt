@@ -1,11 +1,10 @@
-function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( R, z)
+function [ Ii, x , Zi, i, feasible, max_Zi_hist ] = greedytobia( R, z )
 %GREEDYTOBIA Gives a greedy solution for the Portfolio Optimization problem.
 %   R is a (TxJ) matrix of relative returns of J securities over T periods (or in T different scenarios, which is equivalent).
 %	z is the minimum return desired by the decision maker
-%	p is the probability with which the z fact will occurr, i.e., Pr( vopt >= z).
-%	pdf is the probability distribution function of the T scenarios.
 %	max_Zi_hist is a vector with the historic data of maximum Zi reached over iterations.
-	[~, T] = size(R);
+
+[~, T] = size(R);
 	
 	stop = 0;
 	%maxIter = 10*T + 2;	% seems unuseful. at most T iterations will be needed

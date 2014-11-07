@@ -5,13 +5,18 @@ addpath(str);
 addpath(strcat(str, '/datasets'));
 addpath(strcat(str, '/funs'));
 
-max_assets = 6;		% bound complexity
-max_periods = 12;	% bound complexity
+max_assets = 10;		% bound complexity
+max_periods = 300;	% bound complexity
+
+300 periodi x 80
+frontiera efficiente
+p = .8; .9 -> due frontiere
 
 %R = load('SP500.txt');
-%R = load('TSE.txt');
-%R = load('GAUSS_1_05.txt');
-R = load('OXM.txt');
+R = load('TSE.txt');
+%R = randn(max_periods, max_assets) * 0.05;		% gaussian(0, 0.05)
+%R = abs(randn(max_periods, max_assets) * 0.05);% |gaussian(0, 0.05)|
+%R = load('OXM.txt');
 
 [periods, assets] = size(R);
 
@@ -48,7 +53,7 @@ end
 fprintf('This test uses data for %d shares over %d periods.\n', assets, periods)
 
 %% PAPAHRISTODOULOU
-fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ PAPAHRISTODOULOU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
+fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ PAPAHRISTODOULOU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
 
 f = (1/periods) * ones(periods, 1);
 f = [ f ; zeros(assets, 1) ];
@@ -63,15 +68,14 @@ lb = zeros(periods+assets, 1);
 ub = [ Inf(periods,1) ; ones(assets,1) ];
 
 displayOff = optimset('Display','off');
-dumbX0 = zeros(size(f));
-[x, ~] = linprog(f, A, b, Aeq, beq, lb, ub, dumbX0, displayOff);
+[x, ~] = linprog(f, A, b, Aeq, beq, lb, ub, [], displayOff);
 x_papa = x(periods+1:end);
 ER_papa = Rmean * x_papa * 100;	% percent
 fprintf('\nx*:\t'), printarray(x_papa,'f')
 fprintf('\nrisk(stdev) = %f | return(mean) = %f %%\n', std(x_papa), ER_papa);
 
 %% MARKOWITZ
-fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ MARKOWITZ MATLAB STANDARD IMPLEMENTATION ~~~~~~~~\n')
+fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ MARKOWITZ MATLAB STANDARD IMPLEMENTATION ~~~~~~~~~~~~~~~~~~~~\n')
 tic
 [PortRisk, PortReturn, PortWts] = portopt(Rmean, Rcov);
 mrkw_time = toc;
@@ -85,9 +89,9 @@ fprintf('\nx*(max return):\t'), printarray(maxRet,'f')
 fprintf('\nrisk = %f | maximum return = %f %%\n', PortRisk(end), Rmean*maxRet*100);
 
 %% TOBIA
-z = 0.001;
+z = 0.0001;
 R = R';		% occhio !!!!!!!!!!!
-fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ TOBIA (z=%2.2f%%) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n', z*100)
+fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ TOBIA (z=%2.2f%%) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n', z*100)
 
 p = .5;
 [I, x_tobia, ~, i, feasible, max_Zi_hist] = greedytobia(R, z);
@@ -107,31 +111,31 @@ else
 end
 
 %% TOBIA OVER Z
-min_z = -.001;
-max_z = +.0015;
-trials = 50;
-fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ TOBIA linear span %2.2f%% -> %2.2f%%, %d trials ~~~~\n\n', min_z*100, max_z*100, trials)
-z_axis = linspace(min_z, max_z, trials);
-risk_axis = zeros(1, trials);
-return_axis = zeros(1, trials);
-iter_axis = zeros(1, trials);
-solutions = zeros(assets, trials);
-tic
-for i = 1 : trials
-	[~, x, ~, iter, feasible, ~] = greedytobia(R, z_axis(i));
-	if feasible == 1
-		solutions(:,i) = x;
-		risk_axis(i) = std(x);
-		return_axis(i) = Rmean * x * 100;
-		iter_axis(i) = iter;
-	end
-	if mod(i, (trials/10)) == 0
-		fprintf('%d%% ', (i/trials)*100)
-	end
-end
-fprintf('\nMatlab used %f seconds to calculate %d Tobia portfolios.\n', toc, trials)
-
-figure('name', ' Tobia greedy algorithm over Z axis: results')
-subplot(3,1,1), plot(z_axis, risk_axis,'ro', 'LineWidth',1,'MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',5), legend('risk')
-subplot(3,1,2), plot(z_axis, return_axis,'ro', 'LineWidth',1,'MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',5), legend('return')
-subplot(3,1,3), plot(z_axis, iter_axis, 'ro','LineWidth',1,'MarkerEdgeColor','k','MarkerFaceColor','g','MarkerSize',5), legend('iterations')
+% min_z = -.0001;
+% max_z = +.0015;
+% trials = 50;
+% fprintf('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~ TOBIA linear span %2.2f%% -> %2.2f%%, %d trials ~~~~~~~~~~~~~~~~\n\n', min_z*100, max_z*100, trials)
+% z_axis = linspace(min_z, max_z, trials);
+% risk_axis = zeros(1, trials);		% preallocating for speed
+% return_axis = zeros(1, trials);		% preallocating for speed
+% iter_axis = zeros(1, trials);		% preallocating for speed
+% solutions = zeros(assets, trials);	% preallocating for speed
+% tic
+% for i = 1 : trials
+% 	[~, x, ~, iter, feasible, ~] = greedytobia(R, z_axis(i));
+% 	if feasible == 1
+% 		solutions(:,i) = x;
+% 		risk_axis(i) = std(x);
+% 		return_axis(i) = Rmean * x * 100;
+% 		iter_axis(i) = iter;
+% 	end
+% 	if mod(i, (trials/10)) == 0
+% 		fprintf('%d%% ', (i/trials)*100)
+% 	end
+% end
+% fprintf('\nMatlab used %f seconds to calculate %d Tobia portfolios.\n', toc, trials)
+% 
+% figure('name', ' Tobia greedy algorithm over Z axis: results')
+% subplot(3,1,1), plot(z_axis, risk_axis,'ro', 'LineWidth',1,'MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',5), legend('risk')
+% subplot(3,1,2), plot(z_axis, return_axis,'ro', 'LineWidth',1,'MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',5), legend('return')
+% subplot(3,1,3), plot(z_axis, iter_axis, 'ro','LineWidth',1,'MarkerEdgeColor','k','MarkerFaceColor','g','MarkerSize',5), legend('iterations')
