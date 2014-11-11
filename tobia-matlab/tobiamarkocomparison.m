@@ -72,4 +72,5 @@ strMaxReturn = strcat('max ret:', num2str(PortReturn(end)));
 legend(strMinRisk,strMaxReturn);
 xlabel('assets'), ylabel('share quota')
 
+save('markowitzReturns', 'PortReturn', '-ascii')
 fprintf('returns to be passed to tobia as z values:'); PortReturn'
