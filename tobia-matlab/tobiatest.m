@@ -1,16 +1,12 @@
 clc, clear, close all
 format short
-str = pwd;
-addpath(str);
-addpath(strcat(str, '/datasets'));
-addpath(strcat(str, '/funs'));
+%str = pwd;
+%addpath(str);
+%addpath(strcat(str, '/datasets'));
+%addpath(strcat(str, '/funs'));
 
 max_assets = 10;		% bound complexity
 max_periods = 300;	% bound complexity
-
-300 periodi x 80
-frontiera efficiente
-p = .8; .9 -> due frontiere
 
 %R = load('SP500.txt');
 R = load('TSE.txt');

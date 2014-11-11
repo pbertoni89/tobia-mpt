@@ -1,9 +1,5 @@
 clc, clear, close all
 format short
-str = pwd;
-addpath(str);
-addpath(strcat(str, '/datasets'));
-addpath(strcat(str, '/funs'));
 
 max_assets = 80;	% bound complexity
 max_periods = 300;	% bound complexity
