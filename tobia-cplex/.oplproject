@@ -2,6 +2,14 @@
 	<version>1.0</version>
 	<description>This is intended to be the implementation of Tobia P.O. model.</description>
 	<configs>
+		<config category="opl" default="true" name="TSE A80 P300">
+			<ref name="tobia-cplex.mod" type="model">
+			</ref>
+			<ref name="tobia-cplex-A80_P300.dat" type="data">
+			</ref>
+			<ref name="tobia-cplex.ops" type="setting">
+			</ref>
+		</config>
 	</configs>
 	
 </project>

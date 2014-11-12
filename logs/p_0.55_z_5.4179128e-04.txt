@@ -1,0 +1,108 @@
+#pbertoni# ---- CONFIGURATION --------------------------------------------------
+#pbertoni# assets: 80
+#pbertoni# periods: 300
+#pbertoni# soluzione dopo 25 secondi
+#pbertoni# z = 0.00054179128;
+#pbertoni# p = 0.55
+#pbertoni#	SOLUTION FOUND ! ---------------------------------------------------
+
+// solution (integer optimal, tolerance) with objective 0.00526705814957518
+// Quality Incumbent solution:
+// MILP objective                                5.2670581496e-003
+// MILP solution norm |x| (Total, Max)           1.36000e+002 1.00000e+000
+// MILP solution error (Ax=b) (Total, Max)       1.19209e-007 3.72529e-009
+// MILP x bound error (Total, Max)               0.00000e+000 0.00000e+000
+// MILP x integrality error (Total, Max)         2.72338e-013 2.72338e-013
+// MILP slack bound error (Total, Max)           5.57280e-017 5.55112e-017
+// 
+
+X = [0
+         0 0 0 0 0 0 0 0 0.031419 0 0 0.96197 0 0 0 0 0 0 0 0 0 0 0 0.0015583
+         0 0 0 0 0.00047841 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0013479
+         0 0 0 0 0 0 0.003196 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.000032719
+         0 0 0 0];
+A = [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0 1 1 0 0 0 0 1 0 0 0 1 1 1 1 0 0 1 0 0 1
+         1 1 1 0 1 1 0 0 0 1 0 1 1 1 1 0 0 0 0 0 0 1 0 0 0 0 1 0 1 0 0 0 0
+         1 0 1 1 0 1 0 0 1 0 1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0
+         1 0 0 0 1 1 1 0 0 0 0 0 0 1 1 1 1 0 1 1 1 1 1 0 0 1 0 1 0 0 0 1 0
+         0 1 0 0 1 1 1 1 0 0 1 1 1 1 1 1 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 0 0
+         0 1 1 0 1 1 1 0 0 0 0 1 0 0 0 0 1 0 0 1 1 1 1 0 0 1 0 1 1 0 1 1 0
+         1 1 1 0 1 1 1 0 0 0 1 0 0 1 0 0 0 0 1 1 1 1 1 1 1 0 0 1 0 0 0 0 0
+         1 1 0 1 1 0 0 1 1 0 0 0 0 1 1 1 0 0 0 1 1 1 1 1 1 0 1 0 0 1 0 0 1
+         1 0 0 0 0 1 0 1 1 0 0 1 1 0 1 1 0 0 0 1 1 0 1 0 0 0 0 0 1 1 1 1 1];
+		 
+#pbertoni# ----	END OF SOLUTION ------------------------------------------------
+#pbertoni# ----	START OF LOG ---------------------------------------------------
+
+Tried aggregator 1 time.
+MIP Presolve eliminated 0 rows and 1 columns.
+MIP Presolve modified 680 coefficients.
+Reduced MIP has 302 rows, 380 columns, and 20947 nonzeros.
+Reduced MIP has 300 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (9.72 ticks)
+Probing time = 0.00 sec. (0.25 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 302 rows, 380 columns, and 20947 nonzeros.
+Reduced MIP has 300 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (7.23 ticks)
+Probing time = 0.02 sec. (0.25 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (4.91 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0        0.0054    45                      0.0054      170         
+      0     0        0.0054    43                    Cuts: 68      267         
+      0     0        0.0054   114                    Cuts: 56      362         
+      0     0        0.0054   107                    Cuts: 41      407         
+      0     0        0.0054    48                    Cuts: 54      654         
+      0     0        0.0053   113                    Cuts: 41      817         
+*     0+    0                            0.0020        0.0053      817  165.85%
+*     0+    0                            0.0051        0.0053      817    4.47%
+      0     2        0.0053   113        0.0051        0.0053      817    4.47%
+Elapsed time = 1.02 sec. (719.16 ticks, tree = 0.01 MB, solutions = 2)
+*   185    24      integral     0        0.0051        0.0053     3380    4.46%
+*   248+   45                            0.0051        0.0053     3877    3.87%
+*   322    56      integral     0        0.0051        0.0053     5049    3.86%
+*   324+   53                            0.0052        0.0053     5053    3.75%
+*   392    46      integral     0        0.0052        0.0053     5840    3.70%
+*   406    40      integral     0        0.0052        0.0053     5919    3.62%
+*   449    28      integral     0        0.0052        0.0053     7075    2.57%
+*   536+   13                            0.0052        0.0053     7556    2.54%
+*   536+   13                            0.0052        0.0053     7556    2.48%
+*  1248+  102                            0.0052        0.0053    14443    2.28%
+*  1272   107      integral     0        0.0052        0.0053    14519    2.28%
+*  1404   112      integral     0        0.0052        0.0053    15548    2.21%
+   3015   606        0.0053    26        0.0052        0.0053    33495    1.86%
+*  3683+  537                            0.0052        0.0053    40662    1.46%
+   3683   538        0.0053    59        0.0052        0.0053    40791    1.46%
+*  3704+  104                            0.0052        0.0053    41326    1.37%
+*  3704+   69                            0.0052        0.0053    41326    1.33%
+   7896  1246        0.0053    25        0.0052        0.0053    94961    1.17%
+Elapsed time = 4.02 sec. (2643.04 ticks, tree = 0.34 MB, solutions = 17)
+* 10717+ 2003                            0.0052        0.0053   129227    0.98%
+  13991  2528        cutoff              0.0052        0.0053   167553    0.90%
+* 16926  3225      integral     0        0.0053        0.0053   201191    0.44%
+  22495  2058        0.0053    42        0.0053        0.0053   253084    0.32%
+  27482  2025        0.0053    34        0.0053        0.0053   295611    0.21%
+  27496  1353        0.0053    22        0.0053        0.0053   296020    0.23%
+  29521   503        0.0053    38        0.0053        0.0053   322526    0.23%
+  35150  1413        0.0053    19        0.0053        0.0053   382523    0.23%
+  41510  1841        0.0053    17        0.0053        0.0053   443239    0.23%
+  47910   508        0.0053    34        0.0053        0.0053   493334    0.07%
+
+Flow cuts applied:  16
+Mixed integer rounding cuts applied:  34
+Gomory fractional cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    1.02 sec. (718.65 ticks)
+Parallel b&c, 4 threads:
+  Real time             =   20.44 sec. (12225.20 ticks)
+  Sync time (average)   =    1.80 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =   21.45 sec. (12943.85 ticks)

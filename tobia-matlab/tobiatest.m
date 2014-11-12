@@ -9,7 +9,7 @@ max_assets = 10;		% bound complexity
 max_periods = 300;	% bound complexity
 
 %R = load('SP500.txt');
-R = load('TSE.txt');
+R = load('TSE_A80_P300.txt');
 %R = randn(max_periods, max_assets) * 0.05;		% gaussian(0, 0.05)
 %R = abs(randn(max_periods, max_assets) * 0.05);% |gaussian(0, 0.05)|
 %R = load('OXM.txt');
