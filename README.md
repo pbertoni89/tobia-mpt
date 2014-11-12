@@ -15,5 +15,5 @@ This is intended to implement and test some new research papers in MPT.
   - *TSE_A80_P300.xlsx* 	|	data entry for our tests. Matrix of returns for 80 shares over 300 periods. **warning**: spreadsheets **won't** work on Linux systems!
   
 - ./**logs**/
-  - *p_<x>_z_<y>.txt*	| CPLEX log of a run with p = x ; z = y, flavoured with some header informations.
+  - *p-x-z-y.txt*	| CPLEX log of a run with p = x ; z = y, flavoured with some header informations.
   - *benchmarks.xlsx*	| benchmarks on a test machine (described inside): recordings of a) times b) objective function values.
