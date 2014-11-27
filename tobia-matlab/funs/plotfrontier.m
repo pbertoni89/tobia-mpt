@@ -1,9 +1,9 @@
-function [] = plotfrontier( stdev, m , PortRisk, PortReturn )
+function [] = plotfrontier( std, m , PortRisk, PortReturn )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
 figure('name','Frontier')
-scatter(stdev, m)
+scatter(std, m)
 hold on
 plot(PortRisk,PortReturn,'DisplayName','PortReturn vs. PortRisk','XDataSource','PortRisk','YDataSource','PortReturn')
 figure(gcf)
