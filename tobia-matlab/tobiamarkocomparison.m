@@ -53,7 +53,7 @@ Rstd = std(R);
 % 	Rmad(r,:) = R(r,:) - Rmean;
 % end
 
-edgeSize = 15;
+edgeSize = 10;
 fprintf('This test uses data for %d shares over %d periods to compute %d portfolios on Markowitz edge.\n', assets, periods, edgeSize)
 
 %% MARKOWITZ
@@ -76,7 +76,7 @@ strMaxReturn = strcat('max ret:', num2str(PortReturn(end)));
 legend(strMinRisk,strMaxReturn);
 xlabel('assets'), ylabel('share quota')
 
-save('markowitzReturns', 'PortReturn', '-ascii')
+save('markowitzReturns.txt', 'PortReturn', '-ascii')
 fprintf('returns to be passed to tobia as z values:\n'); printarray(PortReturn','f')
 
 %% Build Tobia frontier
