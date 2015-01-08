@@ -95,8 +95,8 @@ TobiaWts(:,10)= [0 0 0 0 0 0 0 0.0022915 0 0 0 0 0 0 0 0.0029097 0 0.75454 0 0 0
 
 %plotfrontier(Rstd, Rmean, PortRisk, PortReturn)
 
-%RXStd = std(R*PortWts');
-%RXRet = Rmean*PortWts';
+% RXStd = std(R*PortWts');
+% RXRet = Rmean*PortWts';
 % PORTRISK = std( R * PORTWTS' )
 % PORTRETURN = mean(R) * PORTWTS'
 
@@ -107,11 +107,13 @@ plotfrontiercomparison(Rstd, Rmean, MarkoRisk, MarkoReturn, TobiaRisk, TobiaRetu
 
 figure('name','Comparison of Marko-Tobia returns');
 plot(MarkoReturn, MarkoReturn,'r'), hold on
+xlabel('Expected Return'), ylabel('Expected Return')
 plot(MarkoReturn, TobiaReturn), legend('\mu_{Marko}', '\mu{Tobia}')
 
 figure('name','Comparison of Marko-Tobia risks');
-plot(MarkoRisk,'r'), hold on
-plot(TobiaRisk), legend('\sigma_{Marko}', '\sigma{Tobia}')
+plot(MarkoReturn, MarkoRisk,'r'), hold on
+xlabel('Expected Return'), ylabel('Standard Deviation')
+plot(MarkoReturn, TobiaRisk), legend('\sigma_{Marko}', '\sigma{Tobia}')
 
 figure('name','Tobia assets')
 bar(1:assets, TobiaWts);
